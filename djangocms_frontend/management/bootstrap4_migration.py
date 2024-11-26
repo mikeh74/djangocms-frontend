@@ -447,15 +447,19 @@ def g001_col_text_alignment(obj, new_obj):
     if obj.column_type != "col":
         print(f"Warning: Break column detected - not supported (id={obj.id})")
     classes = new_obj.config["attributes"].get("class", "").split()
-    if "text-left" in classes or "text-start" in classes:
+    if "text-left" in classes:
         classes.remove("text-left")
+        new_obj.config["text_alignment"] = "start"
+    if "text-start" in classes:
         classes.remove("text-start")
         new_obj.config["text_alignment"] = "start"
     if "text-center" in classes:
         classes.remove("text-center")
         new_obj.config["text_alignment"] = "center"
-    if "text-right" in classes or "text-end" in classes:
+    if "text-right" in classes:
         classes.remove("text-right")
+        new_obj.config["text_alignment"] = "end"
+    if "text-end" in classes:
         classes.remove("text-end")
         new_obj.config["text_alignment"] = "end"
     if classes:
