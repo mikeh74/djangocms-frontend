@@ -5,8 +5,7 @@ from djangocms_frontend.helpers import get_plugin_template
 
 from ... import settings
 from ...cms_plugins import CMSUIPlugin
-from ...common.attributes import AttributesMixin
-from ...common.spacing import PaddingMixin
+from ...common import AttributesMixin, PaddingMixin
 from .. import tabs
 from . import forms, models
 from .constants import TAB_TEMPLATE_CHOICES
@@ -28,6 +27,7 @@ class TabPlugin(mixin_factory("Tab"), AttributesMixin, CMSUIPlugin):
     change_form_template = "djangocms_frontend/admin/tabs.html"
     allow_children = True
     child_classes = ["TabItemPlugin"]
+    show_add_form = False
 
     fieldsets = [
         (
@@ -60,6 +60,7 @@ class TabItemPlugin(mixin_factory("TabItem"), AttributesMixin, PaddingMixin, CMS
     change_form_template = "djangocms_frontend/admin/tabs.html"
     allow_children = True
     parent_classes = ["TabPlugin"]
+    show_add_form = False
 
     fieldsets = [
         (
@@ -70,7 +71,7 @@ class TabItemPlugin(mixin_factory("TabItem"), AttributesMixin, PaddingMixin, CMS
 
     def get_render_template(self, context, instance, placeholder):
         return get_plugin_template(
-            instance.parent.get_plugin_instance()[0],
+            instance.parent or instance,
             "tabs",
             "item",
             TAB_TEMPLATE_CHOICES,

@@ -4,14 +4,8 @@ from entangled.forms import EntangledModelForm
 
 from djangocms_frontend import settings
 
-from ...common.responsive import ResponsiveFormMixin
-from ...common.spacing import MarginFormMixin, PaddingFormMixin
-from ...fields import (
-    AttributesFormField,
-    ButtonGroup,
-    ColoredButtonGroup,
-    TagTypeFormField,
-)
+from ...common import MarginFormMixin, PaddingFormMixin, ResponsiveFormMixin
+from ...fields import AttributesFormField, ButtonGroup, ColoredButtonGroup, TagTypeFormField
 from ...models import FrontendUIItem
 from .constants import LISTGROUP_STATE_CHOICES
 

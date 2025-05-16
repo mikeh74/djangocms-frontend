@@ -3,22 +3,11 @@ from django.utils.translation import gettext as _
 from entangled.forms import EntangledModelForm
 
 from ... import settings
-from ...common.spacing import PaddingFormMixin
-from ...fields import (
-    AttributesFormField,
-    ButtonGroup,
-    IconGroup,
-    TagTypeFormField,
-    TemplateChoiceMixin,
-)
+from ...common import PaddingFormMixin
+from ...fields import AttributesFormField, ButtonGroup, IconGroup, TagTypeFormField, TemplateChoiceMixin
 from ...helpers import first_choice
 from ...models import FrontendUIItem
-from .constants import (
-    TAB_ALIGNMENT_CHOICES,
-    TAB_EFFECT_CHOICES,
-    TAB_TEMPLATE_CHOICES,
-    TAB_TYPE_CHOICES,
-)
+from .constants import TAB_ALIGNMENT_CHOICES, TAB_EFFECT_CHOICES, TAB_TEMPLATE_CHOICES, TAB_TYPE_CHOICES
 
 
 class TabForm(TemplateChoiceMixin, EntangledModelForm):
@@ -94,6 +83,8 @@ class TabItemForm(PaddingFormMixin, EntangledModelForm):
 
     tab_title = forms.CharField(
         label=_("Tab title"),
+        initial=_("New tab"),
+        required=True,
     )
     tab_bordered = forms.BooleanField(
         label=_("Bordered"),

@@ -4,14 +4,8 @@ from django.utils.translation import gettext as _
 from entangled.forms import EntangledModelForm
 
 from ... import settings
-from ...common.spacing import SpacingFormMixin
-from ...fields import (
-    AttributesFormField,
-    ButtonGroup,
-    ColoredButtonGroup,
-    IconGroup,
-    TagTypeFormField,
-)
+from ...common import SpacingFormMixin
+from ...fields import AttributesFormField, ButtonGroup, ColoredButtonGroup, IconGroup, TagTypeFormField
 from ...helpers import first_choice
 from ...models import FrontendUIItem
 from .. import utilities
@@ -68,7 +62,7 @@ class SpacingForm(mixin_factory("Spacing"), EntangledModelForm):
             raise ValidationError(
                 {
                     "space_property": _(
-                        "Padding does not have an auto spacing. Either " "switch to margin or a defined size."
+                        "Padding does not have an auto spacing. Either switch to margin or a defined size."
                     ),
                     "space_size": _(
                         "Padding does not have an auto spacing. Either "
@@ -91,7 +85,7 @@ class HeadingForm(mixin_factory("Heading"), SpacingFormMixin, EntangledModelForm
                 "attributes",
             ],
         }
-        untangled_fields = ("attributes",)
+        untangled_fields = []
 
     HEADINGS = (
         ("h1", _("Heading 1")),

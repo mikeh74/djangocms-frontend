@@ -1,6 +1,5 @@
 import os
 
-from cms.utils.compat import DJANGO_3_1
 
 INSTALLED_APPS = [
     "django.contrib.contenttypes",
@@ -14,7 +13,8 @@ INSTALLED_APPS = [
     "cms",
     "menus",
     "treebeard",
-    "djangocms_text_ckeditor",
+    "djangocms_text",
+    "djangocms_link",
     "djangocms_frontend",
     "djangocms_frontend.contrib.accordion",
     "djangocms_frontend.contrib.alert",
@@ -34,17 +34,22 @@ INSTALLED_APPS = [
     "djangocms_frontend.contrib.tabs",
     "djangocms_frontend.contrib.utilities",
     "sekizai",
+    "tests.test_app",
 ]
-
-if DJANGO_3_1:
-    INSTALLED_APPS += ["django_jsonfield_backport"]
 
 try:  # V4 test?
     import djangocms_versioning  # noqa
 
     INSTALLED_APPS += [
         "djangocms_versioning",
-        "djangocms_alias",
+    ]
+except ImportError:  # Nope
+    pass
+
+try:  # url manager test?
+    import djangocms_url_manager  # noqa
+
+    INSTALLED_APPS += [
         "djangocms_url_manager",
     ]
 except ImportError:  # Nope
@@ -121,3 +126,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CMS_CONFIRM_VERSION4 = True  # Needed for v4, neglected in v3
 
 TEXT_SAVE_IMAGE_FUNCTION = 'djangocms_frontend.contrib.image.image_save.create_image_plugin'
+
+CMS_COMPONENT_PLUGINS = [
+    "djangocms_frontend.cms_plugins.CMSUIPlugin",
+    "djangocms_text.cms_plugins.TextPlugin",
+]

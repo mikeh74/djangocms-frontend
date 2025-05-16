@@ -2,14 +2,12 @@ from django import forms
 from django.conf import settings as django_settings
 from django.db.models.fields.related import ManyToOneRel
 from django.utils.translation import gettext_lazy as _
-from entangled.forms import EntangledModelForm
 from filer.fields.image import AdminImageFormField, FilerImageField
 from filer.models import Image, ThumbnailOption
 
 from djangocms_frontend import settings
 
-from ...common.responsive import ResponsiveFormMixin
-from ...common.spacing import MarginFormMixin
+from ...common import MarginFormMixin, ResponsiveFormMixin
 from ...fields import AttributesFormField, TagTypeFormField, TemplateChoiceMixin
 from ...helpers import first_choice
 from ...models import FrontendUIItem
@@ -46,13 +44,6 @@ def get_templates():
 PICTURE_ALIGNMENT = get_alignment()
 
 
-LINK_TARGET = (
-    ("_blank", _("Open in new window")),
-    ("_self", _("Open in same window")),
-    ("_parent", _("Delegate to parent")),
-    ("_top", _("Delegate to top")),
-)
-
 RESPONSIVE_IMAGE_CHOICES = (
     ("inherit", _("Let settings.DJANGOCMS_PICTURE_RESPONSIVE_IMAGES decide")),
     ("yes", _("Yes")),
@@ -62,10 +53,9 @@ RESPONSIVE_IMAGE_CHOICES = (
 
 class ImageForm(
     TemplateChoiceMixin,
-    AbstractLinkForm,
     ResponsiveFormMixin,
     MarginFormMixin,
-    EntangledModelForm,
+    AbstractLinkForm,
 ):
     """
     Content > "Image" Plugin
@@ -96,6 +86,7 @@ class ImageForm(
                 "attributes",
             ]
         }
+        exclude = ("ui_item",)
 
     link_is_optional = True
 
@@ -129,13 +120,13 @@ class ImageForm(
         label=_("Width"),
         required=False,
         min_value=1,
-        help_text=_("The image width as number in pixels. " 'Example: "720" and not "720px".'),
+        help_text=_('The image width as number in pixels. Example: "720" and not "720px".'),
     )
     height = forms.IntegerField(
         label=_("Height"),
         required=False,
         min_value=1,
-        help_text=_("The image height as number in pixels. " 'Example: "720" and not "720px".'),
+        help_text=_('The image height as number in pixels. Example: "720" and not "720px".'),
     )
     alignment = forms.ChoiceField(
         label=_("Alignment"),
@@ -217,29 +208,9 @@ class ImageForm(
     def clean(self):
         super().clean()
         data = self.cleaned_data
-        # there can be only one link type
-        if (
-            sum(
-                (
-                    bool(data.get("external_link", False)),
-                    bool(data.get("internal_link", False)),
-                    bool(data.get("file_link", False)),
-                )
-            )
-            > 1
-        ):
-            raise forms.ValidationError(
-                _(
-                    "You have given more than one external, internal, or file link target. "
-                    "Only one option is allowed."
-                )
-            )
-
         # you shall only set one image kind
         if not data.get("picture", False) and not data.get("external_picture", False):
-            raise forms.ValidationError(
-                _("You need to add either an image, " "or a URL linking to an external image.")
-            )
+            raise forms.ValidationError(_("You need to add either an image, or a URL linking to an external image."))
 
         # certain cropping options do not work together, the following
         # list defines the disallowed options used in the ``clean`` method
@@ -261,7 +232,7 @@ class ImageForm(
                 break
 
         if invalid_option_pair:
-            message = _("Invalid cropping settings. " 'You cannot combine "{field_a}" with "{field_b}".')
+            message = _('Invalid cropping settings. You cannot combine "{field_a}" with "{field_b}".')
             message = message.format(
                 field_a=self.fields[invalid_option_pair[0]].label,
                 field_b=self.fields[invalid_option_pair[0]].label,

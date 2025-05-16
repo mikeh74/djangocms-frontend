@@ -2,16 +2,52 @@
 Changelog
 =========
 
-1.3.5 (2024-11-11)
+2.1.2 (2025-05-05)
 ==================
 
-* fix: XSS vulnerability by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/244
+* fix: Force rediscovery of inline fields by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/272
+* fix: Bootstrap 4 migration failed in some cases by @milonline-eu in https://github.com/django-cms/djangocms-frontend/pull/270
+
+**New Contributors**
+
+* @milonline-eu made their first contribution in https://github.com/django-cms/djangocms-frontend/pull/270
+
+
+2.1.1 (2025-03-29)
+==================
+
+* feat: add `instance.get_classes` for template components by @fsbraun
+  in https://github.com/django-cms/djangocms-frontend/pull/268
+* docs: Reference example template components
+
+2.1.0 (2025-03-26)
+==================
+
+* feat: Add template components by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/263
+* docs: Add inline-editing how-to by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/261
+
+
+2.0.0 (2025-03-20)
+==================
+* feat: Rename link plugin to text link plugin by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/219
+* feat: Add re-usable components by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/220
+* feat: Support `LinkFormField` of djangocms-link 5+ by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/241
+* feat: Use Django CMS 5.0 capabilities by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/254
+* locale: Updates for file djangocms_frontend/locale/en/LC_MESSAGES/django.po in de by @transifex-integration in https://github.com/django-cms/djangocms-frontend/pull/228
+* fix: inline editing crashed for plugin template tags by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/260
+* docs: update by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/239
+* docs: Add documentation for HeadingPlugin and TOCPlugin by @sourcery-ai in https://github.com/django-cms/djangocms-frontend/pull/246
+* docs: Revise table of contents and fix typos by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/249
+* docs: Update documentation by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/259
 
 
 1.3.4 (2024-09-30)
 ==================
 
-* fix pin django-entangled dependency to < 0.6
+* feat: Rename link plugin to text link plugin by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/219
+* Updates for file djangocms_frontend/locale/en/LC_MESSAGES/django.po in de by @transifex-integration in https://github.com/django-cms/djangocms-frontend/pull/228
+* fix: setting `DJANGOCMS_FRONTEND_MINIMUM_INPUT_LENGTH` caused a regression when updating opt groups by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/230
+* fix: Pin django-entangled dependency to <0.6.
 
 1.3.3 (2024-07-11)
 ==================
@@ -85,7 +121,7 @@ Changelog
 * feat: Add float option for images by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/162
 * feat: Add drag'n'drop support for djangocms-text-ckeditor by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/165
 * fix: Ckeditor does not show icons for editing by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/163
-* fix: Replace ``stylesSet`` setting in docs with ``customConfig` for icons in ckeditor by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/164
+* fix: Replace ``stylesSet`` setting in docs with ``customConfig`` for icons in ckeditor by @fsbraun in https://github.com/django-cms/djangocms-frontend/pull/164
 * ci: pre-commit autoupdate by @pre-commit-ci in https://github.com/django-cms/djangocms-frontend/pull/161
 
 
@@ -109,15 +145,15 @@ Changelog
 ==================
 
 * Fix incomplete migration of code plugins from djangocms-bootstrap4
-* Add compiled French locale (*.mo)
+* Add compiled French locale (\*.mo)
 * Add partial Dutch locale
 
 1.1.5 (2023-07-14)
 ==================
 
 * Fix bug where url for link select2 field was lost after app hook reload (#135)
-* Use `bg-body` class on Bootstrap 5's tab navigation to support color modes (#138)
-* Fix styling of icon buttons for better usager with plain django admin style (#141)
+* Use ``bg-body`` class on Bootstrap 5's tab navigation to support color modes (#138)
+* Fix styling of icon buttons for better usage with plain django admin style (#141)
 
 1.1.4 (2023-05-28)
 ==================

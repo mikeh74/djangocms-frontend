@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ... import settings
 from ...cms_plugins import CMSUIPlugin
-from ...common.attributes import AttributesMixin
+from ...common import AttributesMixin
 from ...helpers import add_plugin
 from .. import accordion
 from . import forms, models
@@ -73,6 +73,8 @@ class AccordionItemPlugin(mixin_factory("AccordionItem"), CMSUIPlugin):
     model = models.AccordionItem
     form = forms.AccordionItemForm
     allow_children = True
+    show_add_form = False
+
     parent_classes = [
         "AccordionPlugin",
     ]
@@ -98,3 +100,5 @@ class AccordionItemPlugin(mixin_factory("AccordionItem"), CMSUIPlugin):
             },
         ),
     ]
+
+    frontend_editable_fields = ("accordion_item_header",)

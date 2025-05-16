@@ -3,15 +3,10 @@ from django.utils.translation import gettext_lazy as _
 from entangled.forms import EntangledModelForm
 
 from djangocms_frontend import settings
-from djangocms_frontend.common.background import BackgroundFormMixin
-from djangocms_frontend.common.responsive import ResponsiveFormMixin
-from djangocms_frontend.common.spacing import SpacingFormMixin
+from djangocms_frontend.common import BackgroundFormMixin, ResponsiveFormMixin, SpacingFormMixin
 from djangocms_frontend.contrib import jumbotron
-from djangocms_frontend.fields import (
-    AttributesFormField,
-    TagTypeFormField,
-    TemplateChoiceMixin,
-)
+from djangocms_frontend.contrib.jumbotron import models
+from djangocms_frontend.fields import AttributesFormField, TagTypeFormField, TemplateChoiceMixin
 from djangocms_frontend.helpers import first_choice
 
 mixin_factory = settings.get_forms(jumbotron)
@@ -31,6 +26,7 @@ class JumbotronForm(
     """
 
     class Meta:
+        model = models.Jumbotron
         entangled_fields = {
             "config": [
                 "jumbotron_fluid",

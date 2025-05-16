@@ -2,16 +2,10 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from entangled.forms import EntangledModelForm
 
-from djangocms_frontend.fields import (
-    AttributesFormField,
-    ColoredButtonGroup,
-    TagTypeFormField,
-)
+from djangocms_frontend.fields import AttributesFormField, ColoredButtonGroup, TagTypeFormField
 
 from ... import settings
-from ...common.background import BackgroundFormMixin
-from ...common.responsive import ResponsiveFormMixin
-from ...common.spacing import SpacingFormMixin
+from ...common import BackgroundFormMixin, ResponsiveFormMixin, SpacingFormMixin
 from ...helpers import first_choice
 from ...models import FrontendUIItem
 from ...settings import COLOR_STYLE_CHOICES

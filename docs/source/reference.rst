@@ -1,19 +1,63 @@
-###########
- Reference
-###########
+#########
+Reference
+#########
 
-**********
- Settings
-**********
+********
+Settings
+********
 
-**djangocms-frontend** can be configured by putting the appropriate settings
+``djangocms-frontend`` can be configured by putting the appropriate settings
 in your project's ``settings.py``.
+
+.. py:attribute:: settings.CMS_COMPONENT_PLUGINS
+
+    Defaults to ``[]``
+
+    A list of dotted pathes to plugin classes that are supposed to also be
+    components (see :ref:`components`). Components are plugins to also be
+    used in templates using the ``{% plugin %}`` template tag.
+
+    For performance reason, the plugin templates are compiled at startup.
+
+    To make ``djangocms-frontend`` plugins available as components, add the
+    following line to your project's settings::
+
+        CMS_COMPONENT_PLUGINS = [
+            "djangocms_frontend.cms_plugins.CMSUIPlugin",  # All subclasses are added
+            # add other plugins here if needed
+        ]
+
+
+.. py:attribute:: settings.DJANGOCMS_FRONTEND_COMPONENT_FIELDS
+
+    Defaults to ``{}``
+
+    A dictionary of installed Django apps and a list of Django form fields to be provided
+    to :ref:`template components <template_components>`' context during their registration.
+    The form fields can be used with the ``{% field %}`` template tag.
+
+    For example, to add a custom field to the context of all components, add the following line to your project's settings::
+
+        DJANGOCMS_FRONTEND_COMPONENT_FIELDS = {
+            "myapp": [
+                "myapp.fields.MySuperFieldField",
+                "myapp.fields.ChatBotField",
+            ],
+            # add other apps here if needed
+        }
+
+    These fields can be used in the template like this::
+
+        {% field "superField" MySuperFieldField required=True %}
+        {% field "chat_bot" ChatBotField required=False %}
+
+    Fields are only imported into the context if the app is installed in the project's ``INSTALLED_APPS``.
 
 .. py:attribute:: settings.DJANGOCMS_FRONTEND_TAG_CHOICES
 
     Defaults to ``['div', 'section', 'article', 'header', 'footer', 'aside']``.
 
-    Lists the choices for the tag field of all djangocms-frontend plugins.
+    Lists the choices for the tag field of all ``djangocms-frontend`` plugins.
     ``div`` is the default tag.
 
     These tags appear in Advanced Settings of some elements for editors to
@@ -141,7 +185,7 @@ in your project's ``settings.py``.
     Default: ``None``
 
     Adds css format files to the frontend editing forms of
-    **djangocms-frontend**. The syntax is with a ``ModelForm``'s
+    ``djangocms-frontend``. The syntax is with a ``ModelForm``'s
     ``css`` attribute of its ``Media`` class, e.g.,
     ``DJANGOCMS_FRONTEND_ADMIN_CSS = {"all": ("css/admin.min.css",)}``.
 
@@ -301,11 +345,20 @@ in your project's ``settings.py``.
 
     This lost of options define the icon size choices a user can select. The values (first tuple element) are css units for the ``font-size`` css property. Besides relative units (``%``) any css unit can be used, e.g. ``112pt``.
 
+.. py:attribute:: settings.DJANGOCMS_FRONTEND_SHOW_EMPTY_CHILDREN
+
+    Default: ``False``
+
+    If set to ``True`` the frontend editing will show a message where children
+    can be added to plugins to complete the design. This is supposed to make
+    the editing experience more intuitive for editors.
+
+
 ******
 Models
 ******
 
-**djangocms-frontend** subclasses the ``CMSPlugin`` model.
+``djangocms-frontend`` subclasses the ``CMSPlugin`` model.
 
 .. py:class:: FrontendUIItem(CMSPlugin)
 
@@ -375,11 +428,11 @@ Models
     returns a plugin-specific short description shown in the structure mode
     of django CMS.
 
-**************
- Form widgets
-**************
+************
+Form widgets
+************
 
-**djangocms-frontend** contains button group widgets which can be used as
+``djangocms-frontend`` contains button group widgets which can be used as
 for ``forms.ChoiceField``. They might turn out helpful when adding custom
 plugins.
 
@@ -431,19 +484,15 @@ plugins.
     This form field is identical to the ``OptionalDeviceChoiceField`` above,
     but requires the user to select at least one device.
 
+*******************
+Management commands
+*******************
 
-
-
-
-*********************
- Management commands
-*********************
-
-Management commands are run by typing ``./manage.py frontend command`` in the
+Management commands are run by typing ``python -m manage frontend command`` in the
 project directory. ``command`` can be one of the following:
 
 ``migrate``
-    Migrates plugins from other frontend packages to **djangocms-frontend**.
+    Migrates plugins from other frontend packages to ``djangocms-frontend``.
     Currently supports **djangocms_bootstrap4** and **djangocms_styled_link**.
     Other packages can be migrated adding custom migration modules to
     the ``DJANGOCMS_FRONTEND_ADDITIONAL_MIGRATIONS`` setting.
@@ -456,19 +505,23 @@ project directory. ``command`` can be one of the following:
     The drawback is, that references might become stale. This command prints all
     stale references, their plugins and pages/placeholder they belong to.
 
-``sync_permissions users`` or ``sync_permissions groups``
-    Django allows to set permissions for each user and group on a per plugin
-    level. This might become somewhat tedious which is why this command
-    will sync permissions. For each user or group it will copy the permissions
-    of ``djangocms_frontend.models.FrontendUIItem`` to all installed
-    djangocms-frontend plugins. If you need to change permissions for all
-    plugins this requires you only to change them for ``FrontendUIItem`` and
-    then syncing the new permission with these commands.
+.. _sync_permissions:
+
+``sync_permissions``
+    This command syncs permissions for users or groups. It is run with one of
+    the following arguments:
+
+    - ``users``: Syncs permissions for all users.
+    - ``groups``: Syncs permissions for all groups.
+
+    Permissions are copied from the ``FrontendUIItem`` model to all installed
+    plugins. This way you can set permissions for all plugins by setting them
+    for ``FrontendUIItem`` and then syncing them.
 
 
-***************
- Running Tests
-***************
+*************
+Running Tests
+*************
 
 You can run tests by executing:
 

@@ -1,9 +1,3 @@
-..
-   djangocms-blog documentation master file, created by
-   sphinx-quickstart on Sun Jun  5 23:27:04 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 ################################################
  Welcome to djangocms-frontend's documentation!
 ################################################
@@ -12,88 +6,72 @@
  djangocms-frontend
 ********************
 
-**djangocms-frontend** is a plugin bundle based on `djangocms_bootstrap5
-<https://github.com/gl-agnx/djangocms-bootstrap5>`_. Its objective is to
-provide a set of popular frontend components independent of the
-currently used frontend framework such as Bootstrap, or its specific
-version.
+django CMS Frontend is a versatile plugin suite for django CMS that facilitates
+the easy creation of reusable frontend components. It supports any CSS framework,
+allowing developers to seamlessly integrate their preferred styling libraries.
+For immediate use, it includes a comprehensive set of Bootstrap 5 components
+and templates.
+
 
 .. image:: ../../preview.png
+
 
 **************
  Key features
 **************
 
--  Support of `Bootstrap 5 <https://getbootstrap.com>`_.
+* **Effortless Development of Custom Frontend Components**: Create reusable frontend
+  components with ease, utilizing simple templates and declarative form
+  classes. These components can function both as CMS plugins and within
+  standard Django templates.
 
--  **Separation of plugins from css framework**, i.e., no need to
-   rebuild you site's plugin tree if css framework is changed in the
-   future, e.g., from Bootstrap 5 to a future version.
+* **Framework-Agnostic Design**: Maintain flexibility in your project's design
+  by decoupling plugins from specific versions of a CSS framework. This ensures
+  that updating frameworks in the future doesn't necessitate rebuilding your
+  site's plugin structure.
 
--  **New link plugin** allowing to link to internal pages provided by
-   other applications, such as `djangocms-blog
-   <https://github.com/nephila/djangocms-blog>`_.
+* **Built-in Bootstrap 5 Components**: Access a ready-to-use collection
+  of Bootstrap 5 components, streamlining the process of building responsive
+  and modern interfaces.
 
--  **Nice and well-arranged admin frontend** of `djangocms-bootstrap4
-   <https://github.com/django-cms/djangocms-bootstrap4>`_
+* **Extensibility**: Enhance your project by creating custom frontend components with
+  minimal code. The system is designed to be extended both within individual
+  projects and through separate theme applications.
 
--  Management command to **migrate from djangocms-bootstrap4**. This
-   command automatically migrates all djangocms-bootstrap4 plugins to
-   djangocms-frontend.
-
--  **Extensible** within the project and with separate project (e.g., a
-   theme app)
-
--  **Accordion** plugin.
+* **Consistent User Experience**: Utilize plugins as UI components throughout
+  your project, promoting a cohesive and uniform user interface.
 
 *************
  Description
 *************
 
-The plugins are framework agnostic and the framework can be changed by
-adapting your project's settings. Also, it is designed to avoid having
-to rebuild your CMS plugin tree when upgrading e.g. from one version of
-your frontend framework to the next.
+Designed to be framework-agnostic, django CMS Frontend allows developers to
+select and change CSS frameworks by adjusting project settings, eliminating
+the need to reconstruct the CMS plugin tree when upgrading or switching
+frameworks. It leverages `django-entangled
+<https://github.com/jrief/django-entangled>`_ to store design parameters in
+a common JSON field, preventing database bloat and facilitating seamless
+updates to frontend features.
 
-django CMS Frontend uses `django-entangled
-<https://github.com/jrief/django-entangled>`_ by Jacob Rief to avoid
-bloating your project's database with css framework-dependent tables.
-Instead all design parameters are stored in a common JSON field and
-future releases of improved frontend features will not require to
-rebuild your full plugin tree.
+By providing a suite of Bootstrap 5-based components for layout structuring,
+including grids, components, and forms, django CMS Frontend simplifies the
+process of building responsive and structured page designs. Developers can
+also create custom frontend components with minimal code, ensuring a consistent and
+efficient development experience.
 
-The link plugin has been rewritten to not allow internal links to other
-CMS pages, but also to other django models such as, e.g., posts of
-`djangocms-blog <https://github.com/nephila/djangocms-blog>`_.
+It is up to you which (if any at all) pre-built components you want to include
+in your project. Each set of components is a separate package you can include
+in your project's ``INSTALLED_APPS``.
 
-**djangocms-frontend** provides a set of plugins to structure your
-layout. This includes three basic elements
-
-The grid
-   The grid is the basis for responsive page design. It splits the page
-   into containers, rows and columns. Depending on the device, columns
-   are shown next to each other (larger screens) or one below the other
-   (smaller screens).
-
-Components
-   Components structure information on your site by giving them an easy
-   to grasp and easy to use look. Alerts or cards are examples of
-   components.
-
-Forms
-   To nicely integrate formss into your page we recommend
-   **djangocms-form-builder** which works stand-alone but also nicely
-   integrates with **djangocms-frontend**.
 
 Contents
 ========
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
-   getting_started
-   grid
-   components
+   tutorial/index
+   plugins/index
    how-to/index
    reference
 

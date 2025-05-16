@@ -4,12 +4,12 @@ from setuptools import find_packages, setup
 from djangocms_frontend import __version__
 
 REQUIREMENTS = [
-    "Django>=2.2",
     "django-cms>=3.7",
     "django-filer>=1.7",
     "easy-thumbnails",
-    "djangocms-attributes-field>=1",
-    "django-entangled>=0.5.4,<0.6",
+    "djangocms-attributes-field>=4",
+    "djangocms-link>=5",
+    "django-entangled>=0.6",
 ]
 
 EXTRA_REQUIREMENTS = {
@@ -21,6 +21,7 @@ EXTRA_REQUIREMENTS = {
     ],
     "cms-4": [
         "django-cms>=4.1.0",
+        "djangocms-link>=5.0.0",
         "django-parler",
         "djangocms-versioning>=2.0.0",
         "djangocms-alias>=2.0.0",
@@ -28,7 +29,8 @@ EXTRA_REQUIREMENTS = {
     ],
     "cms-3": [
         "django-cms<4",
-        "djangocms-text-ckeditor>=3.1.0",
+        "djangocms-text",
+        "djangocms-link>=5.0.0",
         "django-parler",
     ],
 }
@@ -41,24 +43,20 @@ CLASSIFIERS = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Framework :: Django",
-    "Framework :: Django :: 2.2",
-    "Framework :: Django :: 3.2",
-    "Framework :: Django :: 4.0",
-    "Framework :: Django :: 4.1",
     "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
     "Framework :: Django CMS",
-    "Framework :: Django CMS :: 3.8",
-    "Framework :: Django CMS :: 3.9",
-    "Framework :: Django CMS :: 3.10",
     "Framework :: Django CMS :: 3.11",
     "Framework :: Django CMS :: 4.0",
     "Framework :: Django CMS :: 4.1",
+    "Framework :: Django CMS :: 5.0",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
     "Topic :: Software Development",

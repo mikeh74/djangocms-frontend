@@ -3,11 +3,10 @@ from django.utils.translation import gettext_lazy as _
 
 from ... import settings
 from ...cms_plugins import CMSUIPlugin
-from ...common.attributes import AttributesMixin
-from ...common.background import BackgroundMixin
+from ...common import AttributesMixin, BackgroundMixin
 from ...helpers import first_choice, get_plugin_template, get_template_path
 from .. import navigation
-from ..link.cms_plugins import LinkPlugin, LinkPluginMixin
+from ..link.cms_plugins import LinkPluginMixin, TextLinkPlugin
 from . import forms, models
 
 mixin_factory = settings.get_renderer(navigation)
@@ -83,6 +82,7 @@ class PageTreePlugin(
     parent_classes = [
         "NavigationPlugin",
     ]
+    show_add_form = False
     fieldsets = [
         (
             None,
@@ -166,7 +166,7 @@ class NavContainerPlugin(
 @plugin_pool.register_plugin
 class NavLinkPlugin(
     mixin_factory("NavLink"),
-    LinkPlugin,
+    TextLinkPlugin,
 ):
     """
     A plugin that allows creating navigation links for the frontend.
@@ -177,7 +177,8 @@ class NavLinkPlugin(
     - `module` (str): The module where the plugin belongs, displayed in the plugin list when editing a page.
     - `model` (Model): The Django model used to store the plugin's data.
     - `form` (Form): The form used to render the plugin's settings in the admin interface.
-    - `change_form_template` (str): The path to the template used to render the plugin's change form in the admin interface.
+    - `change_form_template` (str): The path to the template used to render the plugin's change form in the admin
+      interface.
     - `allow_children` (bool): Whether the plugin allows having child plugins.
     - `parent_classes` (list): List of parent plugin classes that this plugin can be nested within.
     - `child_classes` (list): List of child plugin classes that can be nested within this plugin.

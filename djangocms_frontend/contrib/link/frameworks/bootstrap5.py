@@ -18,7 +18,7 @@ class LinkRenderMixin:
                 link_classes.append(f"link-{instance.link_context}")
             else:
                 link_classes.append("btn")
-                if not instance.link_outline:
+                if not instance.config.get("link_outline"):
                     link_classes.append(f"{background_prefix}-{instance.link_context}")
                 else:
                     link_classes.append(f"btn-outline-{instance.link_context}")
@@ -28,6 +28,5 @@ class LinkRenderMixin:
             link_classes.append("d-block")
         if instance.config.get("link_stretched", False):
             link_classes.append("stretched-link")
-        context["link"] = instance.get_link()
         instance.add_classes(link_classes)
         return super().render(context, instance, placeholder)

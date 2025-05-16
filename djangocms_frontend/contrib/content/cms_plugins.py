@@ -3,10 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ... import settings
 from ...cms_plugins import CMSUIPlugin
-from ...common.attributes import AttributesMixin
-from ...common.background import BackgroundMixin
-from ...common.responsive import ResponsiveMixin
-from ...common.spacing import SpacingMixin
+from ...common import AttributesMixin, BackgroundMixin, ResponsiveMixin, SpacingMixin
 from .. import content
 from . import forms, models
 
@@ -66,6 +63,7 @@ class BlockquotePlugin(
     form = forms.BlockquoteForm
     change_form_template = "djangocms_frontend/admin/blockquote.html"
     allow_children = True
+    frontend_editable_fields = ("quote_content", "quote_origin")
 
     fieldsets = [
         (
@@ -101,6 +99,7 @@ class FigurePlugin(
     form = forms.FigureForm
     change_form_template = "djangocms_frontend/admin/figure.html"
     allow_children = True
+    frontend_editable_fields = ("figure_caption",)
 
     fieldsets = [
         (

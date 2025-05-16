@@ -12,9 +12,12 @@ step-by-step guidance.
 .. toctree::
    :maxdepth: 1
 
-   internal-link-targets
+   use-frontend-as-component
+   inline-editing
    add-frontend-plugins
    extend-frontend-plugins
    add-tab-style
    create-themes
+   migrate-bootstrap4
    migrate-3rd-party-plugins
+   internal-link-targets

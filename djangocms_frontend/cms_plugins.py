@@ -1,10 +1,26 @@
-from cms.plugin_base import CMSPluginBase
-from django.utils.encoding import force_str
+from cms.plugin_pool import plugin_pool
+
+from .ui_plugin_base import CMSUIPluginBase
 
 
-class CMSUIPlugin(CMSPluginBase):
-    render_template = "djangocms_frontend/html_container.html"
-    change_form_template = "djangocms_frontend/admin/base.html"
+class CMSUIPlugin(CMSUIPluginBase):
+    pass
 
-    def __str__(self):
-        return force_str(super().__str__())
+
+def update_plugin_pool():
+    from .component_pool import components
+
+    # Loop through the values in the components' registry
+    for _, plugin, slot_plugins in components._registry.values():
+        if plugin.__name__ not in plugin_pool.plugins:
+            # Add the plugin to the global namespace
+            globals()[plugin.__name__] = plugin
+            # Register the plugin with the plugin pool
+            plugin_pool.register_plugin(plugin)
+
+            # Loop through the slot plugins associated with the current plugin
+            for slot_plugin in slot_plugins:
+                # Add the slot plugin to the global namespace
+                globals()[slot_plugin.__name__] = slot_plugin
+                # Register the slot plugin with the plugin pool
+                plugin_pool.register_plugin(slot_plugin)

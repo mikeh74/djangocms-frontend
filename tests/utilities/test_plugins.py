@@ -1,5 +1,6 @@
 from cms.api import add_plugin
 from cms.test_utils.testcases import CMSTestCase
+from cms.utils.urlutils import admin_reverse
 
 from djangocms_frontend.contrib.utilities.cms_plugins import (
     HeadingPlugin,
@@ -7,6 +8,7 @@ from djangocms_frontend.contrib.utilities.cms_plugins import (
     TOCPlugin,
 )
 from djangocms_frontend.contrib.utilities.forms import TableOfContentsForm
+from djangocms_frontend.ui_plugin_base import PlaceholderAdmin
 
 from ..fixtures import TestFixture
 
@@ -87,3 +89,31 @@ class UtilitiesPluginTestCase(TestFixture, CMSTestCase):
         self.assertContains(response, '<ul class="test-class"><li ><a href="#id2" >')
         self.assertContains(response, '<a href="#id1" >')
         self.assertContains(response, '<a href="#id2" >')
+
+    def test_heading_inline_endpoint(self):
+        heading = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type=HeadingPlugin.__name__,
+            language=self.language,
+            config={
+                "heading_level": "h2",
+                "heading": "Welcome to django CMS!",
+                "heading_id": "id1",
+            },
+        )
+
+        if hasattr(PlaceholderAdmin, "edit_field"):
+            url_endpoint = "cms_placeholder_edit_field"
+        else:
+            url_endpoint = "utilities_heading_edit_field"
+        url_endpoint = admin_reverse(url_endpoint, args=[heading.pk, self.language]) + "?edit_fields=heading"
+        data = {
+            "heading": "My new heading",
+        }
+        with self.login_user_context(self.superuser):
+            response = self.client.post(url_endpoint, data)
+
+        self.assertEqual(response.status_code, 200)
+        heading.refresh_from_db()
+        self.assertEqual(heading.heading, "My new heading")  # New data
+        self.assertEqual(heading.heading_id, "id1")  # Other fields unchanged

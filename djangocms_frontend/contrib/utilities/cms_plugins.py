@@ -4,8 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from djangocms_frontend import settings
 
 from ...cms_plugins import CMSUIPlugin
-from ...common.attributes import AttributesMixin
-from ...common.spacing import SpacingMixin
+from ...common import AttributesMixin, SpacingMixin
 from .. import utilities
 from . import forms, models
 
@@ -50,6 +49,8 @@ class EditorNotePlugin(mixin_factory("EditorNote"), CMSUIPlugin):
     module = _("Frontend")
     allow_children = True
     change_form_template = "djangocms_frontend/admin/no_form.html"
+    show_add_form = False
+    edit_disabled = True
 
 
 @plugin_pool.register_plugin
@@ -63,6 +64,7 @@ class HeadingPlugin(mixin_factory("Heading"), AttributesMixin, SpacingMixin, CMS
 
     render_template = "djangocms_frontend/heading.html"
     allow_children = True
+    is_local = False
 
     fieldsets = [
         (
@@ -77,6 +79,8 @@ class HeadingPlugin(mixin_factory("Heading"), AttributesMixin, SpacingMixin, CMS
             },
         ),
     ]
+
+    frontend_editable_fields = ("heading",)
 
     def render(self, context, instance, placeholder):
         if not hasattr(context["request"], "TOC"):
@@ -127,6 +131,9 @@ class TOCPlugin(mixin_factory("TOC"), AttributesMixin, CMSUIPlugin):
     change_form_template = "djangocms_frontend/admin/no_form.html"
 
     fieldsets = settings.EMPTY_FIELDSET
+    show_add_form = False
+    edit_disabled = True
+    is_local = False
 
     def render(self, context, instance, placeholder):
         if hasattr(context["request"], "TOC"):
