@@ -492,6 +492,11 @@ def t001_template(obj, new_obj, bs4_setting, dcf_setting):
             print(f"   Remember to put {dcf_setting} in your settings.py")
 
 
+def gutters_migration(obj, new_obj):
+    if "gutters" in new_obj.config:
+        if obj.gutters is True:
+            new_obj.config["gutters"] = "g-0"
+
 data_migration = {
     "P001": p001_left_right_migration,
     "X002": x002_replace_card_deck,
@@ -524,6 +529,9 @@ data_migration = {
         "DJANGOCMS_BOOTSTRAP4_CAROUSEL_TEMPLATES",
         "DJANGOCMS_FRONTEND_CAROUSEL_TEMPLATES",
     ),
+    # add additional data migration for gutters using a lambda function to convert
+    # True to "g-0" and False to "g-1"
+    "gutters": gutters_migration,
 }
 
 plugin_prefix = "Bootstrap4"
