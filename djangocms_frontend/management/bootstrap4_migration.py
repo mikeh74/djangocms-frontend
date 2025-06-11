@@ -356,9 +356,11 @@ def x003_card_context(obj, new_obj):
 
 def a001_alignment(obj, new_obj, field):
     if field in new_obj.config and new_obj.config[field]:
-        new_obj.config[field].replace("text-left", "start")
-        new_obj.config[field].replace("text-center", "center")
-        new_obj.config[field].replace("text-right", "end")
+        value = new_obj.config[field]
+        value = value.replace("text-left", "start")
+        value = value.replace("text-center", "center")
+        value = value.replace("text-right", "end")
+        new_obj.config[field] = value
 
 
 def m001_spacing_mixin(obj, new_obj, type):
