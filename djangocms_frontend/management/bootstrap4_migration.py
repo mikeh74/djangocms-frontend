@@ -492,8 +492,22 @@ def t001_template(obj, new_obj, bs4_setting, dcf_setting):
             print(f"   Remember to put {dcf_setting} in your settings.py")
 
 def gutters_migration(obj, new_obj):
+    """
+    Migrates the 'gutters' configuration from the old object to the new object.
+
+    If the 'gutters' attribute of the source object is True, sets the 'gutters'
+    key in the new object's config to 'g-0'.
+
+    Otherwise, sets it to an empty string.
+
+    Args:
+        obj: The source object containing the original 'gutters' attribute.
+        new_obj: The target object whose 'config' dictionary will be updated.
+    """
     if obj.gutters and obj.gutters is True:
         new_obj.config["gutters"] = "g-0"
+    else:
+        new_obj.config["gutters"] = ""
 
 data_migration = {
     "P001": p001_left_right_migration,
