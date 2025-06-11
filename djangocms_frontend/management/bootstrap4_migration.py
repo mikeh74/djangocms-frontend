@@ -491,11 +491,9 @@ def t001_template(obj, new_obj, bs4_setting, dcf_setting):
         if not DCF and bs4_setting != dcf_setting:
             print(f"   Remember to put {dcf_setting} in your settings.py")
 
-
 def gutters_migration(obj, new_obj):
-    if "gutters" in new_obj.config:
-        if obj.gutters is True:
-            new_obj.config["gutters"] = "g-0"
+    if obj.gutters and obj.gutters is True:
+        new_obj.config["gutters"] = "g-0"
 
 data_migration = {
     "P001": p001_left_right_migration,
