@@ -496,7 +496,7 @@ def gutters_migration(obj, new_obj):
     Migrates the 'gutters' configuration from the old object to the new object.
 
     If the 'gutters' attribute of the source object is True, sets the 'gutters'
-    key in the new object's config to 'g-0'.
+    key in the new object's config to '0'.
 
     Otherwise, sets it to an empty string.
 
@@ -505,7 +505,7 @@ def gutters_migration(obj, new_obj):
         new_obj: The target object whose 'config' dictionary will be updated.
     """
     if obj.gutters and obj.gutters is True:
-        new_obj.config["gutters"] = "g-0"
+        new_obj.config["gutters"] = "0"
     else:
         new_obj.config["gutters"] = ""
 
